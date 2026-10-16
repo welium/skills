@@ -19,18 +19,18 @@ Follow the repository's existing Python version, dependencies, tooling, and conv
 
 ## Async and Concurrency
 
-Use `asyncio` when the workload benefits from concurrent I/O or the surrounding application is already asynchronous.
+Prefer `asyncio` for I/O-bound work; asynchronous execution is the general default when an asynchronous API exists.
 
 * Never perform blocking network, filesystem, database, subprocess, or sleep operations directly inside an async context when an appropriate asynchronous API exists.
-* Do not introduce async merely because a task performs I/O; straightforward sequential code is preferable when concurrency provides no meaningful benefit.
+* Fall back to straightforward sequential code only when no asynchronous API is available or concurrency provides no meaningful benefit.
 * Reuse long-lived clients and connection pools when appropriate rather than creating one client per operation.
 
 For Typer commands that need to execute asynchronous application code, keep the CLI entry point synchronous and enter the async application with `asyncio.run()` unless the project already establishes another pattern. Preserve function metadata when wrapping decorated command functions.
 
 ## Logging
 
-* Use structured/contextual fields instead of constructing complex log strings manually.
-* Use JSON serialization where logs are intended for machine ingestion.
+* Log text first: write clear, human-readable messages; prefer structured/contextual fields over manually constructing complex log strings.
+* Use JSON serialization only when logs are intended for machine ingestion.
 * Do not log secrets or unnecessarily large payloads.
 * Libraries should not globally configure application logging.
 

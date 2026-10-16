@@ -22,7 +22,8 @@ Prefer, in order:
 - Follow KISS and YAGNI. Solve real problems only.
 - Make the smallest cohesive change. Avoid unrelated refactoring.
 - Preserve existing behavior unless explicitly asked to change it.
-- Avoid unnecessary abstractions, frameworks, service layers, factories, registries, DI, configuration systems, retries, concurrency, compatibility layers, and recovery mechanisms.
+- Avoid unnecessary abstractions, service layers, factories, registries, DI, configuration systems, retries, compatibility layers, and recovery mechanisms.
+- The defaults below define the baseline stack, not speculative machinery. A framework, dependency, or mechanism that is part of that baseline—or required by a stated requirement—is not "unnecessary". This rule targets additions layered on top of the chosen stack, not the stack itself.
 - Prefer fewer moving parts, straightforward control flow, easy debugging, and low maintenance cost.
 - Match effort to actual requirements, risks, and failure modes.
 
@@ -69,6 +70,7 @@ When the repository does not establish a stack:
 ## Logging
 
 - Log meaningful events and failures with sufficient diagnostic context, including relevant variable values, field values, identifiers, and error details.
-- Use appropriate severity levels and structured, searchable logs.
+- Log text first: clear, human-readable messages at appropriate severity levels.
+- Add structured fields or JSON only when the log destination actually consumes them (e.g. machine ingestion); do not make structured output the default.
 - Avoid excessive verbosity, redundant messages, and sensitive information. Ordinary identifiers are generally not sensitive.
 - For long-running tasks, emit visually distinctive progress logs that are easy for human operators to spot in auto-scrolling output.
