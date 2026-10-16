@@ -10,6 +10,7 @@ A collection of agent skills. Each skill is a self-contained folder with a `SKIL
 | [`coding-guidelines`](coding-guidelines/SKILL.md) | Practical engineering defaults: scope and complexity, change discipline, default stack, error handling, logging, and UI/UX. |
 | [`document-guidelines`](document-guidelines/SKILL.md) | How to write durable documentation and operator guides, and where execution plans and work logs belong. |
 | [`implementation-review`](implementation-review/SKILL.md) | Independent review contract for a diff or change: boundaries, checks, severity, verdict, and reporting. |
+| [`security-review`](security-review/SKILL.md) | Independent security review contract: dependency and supply-chain checks, vulnerability classes, severity, verdict, and reporting. |
 | [`python-guidelines`](python-guidelines/SKILL.md) | Python implementation guidelines; [`greenfield.md`](python-guidelines/greenfield.md) adds default dependencies and tooling for new projects. |
 | [`visual-review`](visual-review/SKILL.md) | Independent review contract for a rendered user interface: inspection approach, discipline, verdict, and reporting. |
 | [`x-inspired-frontend-design`](x-inspired-frontend-design/SKILL.md) | A frontend design direction: restrained surfaces, crisp typography, and responsive, accessible layouts across product domains. |
