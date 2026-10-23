@@ -5,12 +5,13 @@ description: Apply when creating, updating, or reviewing documentation.
 
 # Document Guidelines
 
+* Follow ASD-STE100 standard for all documents, with the emphasis below.
+
 ## Core Principle
 
 Write accurate, concise, and practical documentation for its intended audience.
 
 * Prioritize information that helps readers understand, use, operate, or maintain the project.
-* Follow existing repository conventions and avoid unnecessary documentation or duplication.
 * Keep information consistent with the actual implementation. Do not invent behavior, interfaces, commands, or capabilities.
 * Prefer clear explanations, meaningful examples, and straightforward structure over exhaustive descriptions.
 * Intended audience is **human** and don't assume native language proficiency. Use clear, simple language.
