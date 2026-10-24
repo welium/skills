@@ -17,6 +17,8 @@ Prefer, in order:
 4. Established new dependencies that materially reduce complexity
 5. Minimal custom code
 
+Before adding complexity for a speculative or vanishingly unlikely race or security edge case, explain the concrete failure mode, likelihood, and complexity cost to the user and get their buy-in. Do not silently expand scope for theoretical robustness.
+
 ## Scope & Complexity
 
 - Follow KISS and YAGNI. Solve real problems only.
