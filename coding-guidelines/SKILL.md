@@ -1,78 +1,30 @@
 ---
 name: coding-guidelines
-description: Apply when planning, implementing, modifying, or reviewing code.
+description: Use when planning, writing, changing, or reviewing code. Covers reversible decisions, readable implementation, and house engineering defaults.
 ---
 
 # Coding Guidelines
 
-## Core Principle
+## Decisions and scope
 
-Be a practical engineer. Deliver the simplest reliable solution that meets the actual requirements.
+- Make routine, reversible decisions using the request and repository conventions. Mention an assumption when it affects the result. Ask only when unresolved uncertainty would materially change the outcome, when a stated boundary would be crossed, or when a decision is costly to undo.
+- Skip speculative work. If a credible failure mode warrants extra complexity, weigh its likelihood and impact against the maintenance cost. Keep the change focused and preserve behavior that callers rely on.
+- Reuse repository code first. Prefer the standard library or an existing dependency when it fits. Add a dependency when it clearly simplifies the work or provides a capability the project needs.
 
-Prefer, in order:
+## Readable, reliable code
 
-1. Existing repository functionality and conventions
-2. Standard library
-3. Already-installed dependencies
-4. Established new dependencies that materially reduce complexity
-5. Minimal custom code
+- Use names from the problem domain. Make inputs, main steps, and outputs easy to trace. Prefer straightforward control flow and add an abstraction when it makes the job easier to follow. A little duplication can be clearer than a shared abstraction.
+- Comment on why a rule or constraint matters. Validate at trust boundaries and let unexpected failures surface clearly. Catch exceptions for useful context, cleanup, recovery, or boundary reporting. A clear error and nonzero exit can suffice for a small script.
+- Verify changed behavior through its normal entry point. Match the checks to the impact and realistic failure modes.
+- Write logs for people first. Include useful diagnostic context and omit sensitive values. Add structured output when a consumer needs it. Make progress visible during long operations.
+- Use familiar terms and units in the UI. Tell users when missing, stale, or estimated data changes how they should interpret a result or what they should do next. Keep implementation details in maintainer docs.
 
-Before adding complexity for a speculative or vanishingly unlikely race or security edge case, explain the concrete failure mode, likelihood, and complexity cost to the user and get their buy-in. Do not silently expand scope for theoretical robustness.
+## Greenfield defaults
 
-## Scope & Complexity
+Use these defaults for the parts the project needs. Follow an established repository stack.
 
-- Follow KISS and YAGNI. Solve real problems only.
-- Make the smallest cohesive change. Avoid unrelated refactoring.
-- Preserve existing behavior unless explicitly asked to change it.
-- Avoid unnecessary abstractions, service layers, factories, registries, DI, configuration systems, retries, compatibility layers, and recovery mechanisms.
-- The defaults below define the baseline stack, not speculative machinery. A framework, dependency, or mechanism that is part of that baseline—or required by a stated requirement—is not "unnecessary". This rule targets additions layered on top of the chosen stack, not the stack itself.
-- Prefer fewer moving parts, straightforward control flow, easy debugging, and low maintenance cost.
-- Match effort to actual requirements, risks, and failure modes.
-
-## Change Discipline
-
-- Identify the root cause and fix it directly.
-- Implement only what is required to satisfy the stated requirements.
-- Verify with proportionate tests or checks. Once requirements are met, stop.
-- Do not expand scope, "improve" surrounding code, or add speculative features.
-- Prefer local, readable edits over broad rewrites.
-
-## Defaults
-
-When the repository does not establish a stack:
-
-- Frontend: TypeScript, Vite, React, Tailwind CSS
-- Backend: Python 3.13+, FastAPI, Pydantic v2+, SQLAlchemy, Alembic
-- Database: PostgreSQL 18+ (production); SQLite for development/testing when compatible
-- CLI: Python 3.13+, Typer
-- Optional: Redis 8+, Docker
-
-## Errors & Validation
-
-- Fail clearly. Do not hide unexpected failures.
-- Catch exceptions only to recover meaningfully or add useful context.
-- Validate at trust boundaries; trust established internal contracts.
-- Preserve diagnostic context without exposing sensitive information.
-- For small scripts, an uncaught exception and non-zero exit code are often sufficient.
-
-## Code Quality
-
-- Write human-readable code with meaningful names and explicit control flow.
-- Comment on non-obvious constraints, trade-offs, and decisions. Avoid restating the code.
-- Avoid obvious inefficiencies (N+1 queries, redundant I/O).
-- Prefer async/coroutines for I/O-bound work when supported and beneficial.
-
-## UI/UX
-
-- All user-facing text must be meaningful, clean, and professional.
-- Never expose implementation details, internal assumptions, data-processing rules, fallback behavior, or developer notes in the UI.
-- Handle missing or uncertain data in application logic. Present clean values, placeholders (e.g. "—"), or empty states without explaining the handling.
-- Keep technical explanations in code comments or developer documentation only.
-
-## Logging
-
-- Log meaningful events and failures with sufficient diagnostic context, including relevant variable values, field values, identifiers, and error details.
-- Log text first: clear, human-readable messages at appropriate severity levels.
-- Add structured fields or JSON only when the log destination actually consumes them (e.g. machine ingestion); do not make structured output the default.
-- Avoid excessive verbosity, redundant messages, and sensitive information. Ordinary identifiers are generally not sensitive.
-- For long-running tasks, emit visually distinctive progress logs that are easy for human operators to spot in auto-scrolling output.
+- Frontend — TypeScript, Vite, React, Tailwind CSS
+- Backend — Python 3.13+, FastAPI, Pydantic v2+. Add SQLAlchemy and Alembic for relational persistence when needed.
+- Database — PostgreSQL 18+ in production. SQLite for local development or tests when compatible.
+- CLI — Python 3.13+. Prefer Typer for a non-trivial CLI.
+- Redis 8+ and Docker are available choices when the project calls for them.

@@ -2,12 +2,9 @@
 
 Use `uv` for dependency management, lockfiles, virtual environments, running tools, and scripts.
 
-Prefer:
+Use these choices when the project needs them. Reuse an existing dependency when it fits.
 
-* `httpx` for HTTP.
-
-  * Use `httpx.AsyncClient` in async workflows.
-  * Use `httpx.Client` when asynchronous execution provides no useful benefit.
+* `httpx` for HTTP. Use `AsyncClient` for async workflows and `Client` for sequential work.
 * Pydantic v2+ for validation and parsing.
 * `pydantic-settings` for application settings when structured environment/config loading is required.
 * Typer for non-trivial CLI applications.
@@ -16,9 +13,6 @@ Prefer:
 * Loguru for application logging.
 * Ruff for linting and formatting.
 * Pyrefly for static type checking.
-
-Do not add one of these dependencies when an existing project dependency already solves the task adequately.
-Respect existing project configuration and do not override it without a clear reason.
 
 ## Default Ruff and Pyrefly Configuration
 

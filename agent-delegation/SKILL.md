@@ -1,37 +1,12 @@
 ---
 name: agent-delegation
-description: Use when delegating tasks to agents. Provides contract for delegation, context, references, and evidence standards.
+description: Use when delegating work to another agent. Covers task ownership, context, and evidence of completion.
 ---
-## Delegation Contract
 
-Delegate in **English**.
-Every delegation must be self-contained: state the overall goal, origin and reason for delegation, completed/decided work, the specific owned outcome, boundaries, and validation requirements. Use this structure, additional section could be added as needed:
+# Agent Delegation
 
-```markdown
-# Task
-State one coherent, specific outcome owned by this agent.
+Write the brief in English. Give the agent one owned outcome and enough context to act without your conversation history. Include relevant paths, decisions already made, boundaries, and how to verify completion. Summarize the relevant parts of any linked plan or prior review.
 
-# Context
-Explain the source request/plan/issue/reviewer result, exact locations, phase and objective when relevant, current status, prior work/findings, decisions, assumptions, and dependencies. A filepath alone is insufficient.
+A short paragraph is enough for a small task. Use headings when a longer brief needs them. Specify what the agent owns and let them choose the implementation within those boundaries.
 
-# Constraints
-State scope, compatibility, safety restrictions, prohibited operations, unchanged files, and preserved behavior.
-
-# Details
-Give relevant paths/symbols, plan or documentation locations, covered acceptance criteria, conventions, required validation, actionable findings, evidence, and output format.
-
-```
-
-References may point to larger sources, but must summarize relevant portions. Before delegating, ensure the message answers: larger outcome, origin, why next, completed work, exact responsibility, what to avoid, and how completion is verified. Never require reconstruction from conversation history.
-
-## Context, Reference, and Instruction Rules
-
-- Identify referenced work by location and meaning. Plan references include filepath, phase number/title, objective, acceptance criteria, and status.
-- Reviewer references include reviewed implementation/phase, verdict, actionable findings, and resolved findings. Summarize prior agent conclusions.
-- Pass filenames and symbols rather than copied contents unless a tiny excerpt is essential.
-- Use imperative, outcome-oriented language; define boundaries without micromanaging.
-- Do not include fenced implementation code, combine unrelated outcomes, or use supervisor-only shorthand. Copy actionable reviewer findings into repair briefs and require concrete evidence.
-
-## Evidence Standard
-
-Never accept “done” or “works” alone. Require evidence appropriate to the delegated task: applicable files changed, tests added/updated, exact commands, test/type-check/lint/build/runtime results, diff summary, and assumptions/limitations. For research-only tasks, require sources, findings, and limitations rather than implementation artifacts. Include reviewer verdicts when review was performed; require approval only when the user or workflow establishes a review gate. If validation cannot run, mark it unverified and explain exactly why.
+Ask for evidence that fits the task. For implementation, get changed files, relevant checks and results, and anything left unverified. For research, get findings, sources, and limitations. For an independent review, pass the applicable review skill and state whether the verdict is advisory or a required gate.
